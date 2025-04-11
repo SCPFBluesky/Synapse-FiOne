@@ -229,3 +229,6 @@ print(isreadonly(Yeah)) --> false
 | `State`       | `boolean`            | Readonly state (`true` or `false`).      |
 
 ---
+
+![image](https://github.com/user-attachments/assets/85cf423c-888e-4ea8-9666-01a40369224c)
+
