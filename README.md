@@ -191,6 +191,14 @@ Returns `true` if the function was made by `C`.
 
 ---
 
+---
+
+### `newcclosure`
+
+Creates and pushes a new `C` Closure onto the provided function
+
+---
+
 ## 📂 Table Functions
 
 ### `isreadonly`
