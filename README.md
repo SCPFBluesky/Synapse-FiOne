@@ -5,7 +5,7 @@
 ![Language](https://img.shields.io/badge/language-Luau%20%2F%20Lua-yellow)
 ![Platform](https://img.shields.io/badge/platform-Roblox-blueviolet)
 
-**Synapse F** is a closed-source INCOMPLETE Roblox Studio executor.
+**Synapse F** is a closed-source **INCOMPLETE** Roblox Studio executor.
 This project mimics an exploit environment which you would see if you downloaded a high unc exploit like ``Synapse X `` or in today's age ``Wave`` or ``Swift``. **This project is  of course written in pure Luau / Lua**,  with the help of the ``FiOne`` bytecode interpreter.
 
 ---
