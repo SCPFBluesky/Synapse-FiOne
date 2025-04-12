@@ -48,11 +48,27 @@ Returns the metatable of a table or userdata, even if the metatable has the `__m
 
 | **Parameter** | **Type**             | **Description** |
 |---------------|----------------------|-----------------|
-| `Object`      | `userdata or table`  | The target.     |
+| `Object`      | `userdata or table`  | The target table.     |
 
 ```lua
 local raw = getrawmetatable(game)
 table.foreach(raw, print)
+```
+
+
+### `setrawmetatable`
+
+sets the rawmetatable of a table or userdata, even if the metatable has the `__metatable` metamethod.
+
+| **Parameter** | **Type**             | **Description** |
+|---------------|----------------------|-----------------|
+| `Object`      | `userdata or table`  | The target table.     |
+| `New`      | `any` | The new metatable   |
+
+
+```lua
+setrawmetatable(game, {__metatable = "lol"});
+print(getmetatable(game));
 ```
 
 ---
