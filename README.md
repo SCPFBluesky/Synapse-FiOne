@@ -210,6 +210,12 @@ Creates and pushes a new `C` Closure onto the provided function
 
 ---
 
+### `getcallingscript`
+
+Gets and returns the ``script`` that is invoking the current ``thread``.
+
+---
+
 ## 📂 Table Functions
 
 ### `isreadonly`
