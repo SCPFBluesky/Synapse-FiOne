@@ -252,5 +252,6 @@ print(isreadonly(Yeah)) --> false
 
 ---
 
-![image](https://github.com/user-attachments/assets/85cf423c-888e-4ea8-9666-01a40369224c)
+![image](https://github.com/user-attachments/assets/139d321b-6961-494f-9311-62dc8525a77d)
+
 
