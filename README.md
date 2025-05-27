@@ -30,7 +30,7 @@ Returns the table of `Synapse F` global environment table.
 
 ### `getrenv`
 
-Returns a table of the `roblox` environment table.
+Returns a table of the `ROBLOX` environment table.
 
 ---
 
@@ -58,7 +58,7 @@ table.foreach(raw, print)
 
 ### `setrawmetatable`
 
-sets the rawmetatable of a table or userdata, even if the metatable has the `__metatable` metamethod.
+sets the metatable of a table or userdata, even if the metatable has the `__metatable` metamethod.
 
 | **Parameter** | **Type**             | **Description** |
 |---------------|----------------------|-----------------|
@@ -67,15 +67,15 @@ sets the rawmetatable of a table or userdata, even if the metatable has the `__m
 
 
 ```lua
-setrawmetatable(game, {__metatable = "lol"});
-print(getmetatable(game));
+setrawmetatable(game, {});
+print(getmetatable(game)); -> {}
 ```
 
 ---
 
 ### `hookmetamethod`
 
-Hooks any specified `metamethod` on any userdata or table.
+Hooks any specified `metamethod` on any userdata or table. 
 
 | **Parameter**  | **Type**             | **Description**         |
 |----------------|----------------------|-------------------------|
@@ -155,7 +155,7 @@ Clones the provided function.
 
 ### `getnamecallmethod`
 
-Returns the name of the called method, typically used with `__namecall` hooks.
+Returns a string of the method that invoked the ``__namecall `` metamethod of the metatable.
 
 ```lua
 local hook
@@ -177,15 +177,16 @@ Returns the number of the current thread identification level.
 
 ### `setnamecallmethod`
 
-Sets the current `__namecall` method to your own.
+Sets the methopd that invoked ```__namecall``` to your own wanted method. 
 
 ```lua
 local hook
 hook = hookmetamethod(game, "__namecall", function(Self, ...)
   local Method = getnamecallmethod()
-  if Method == "GetService" then
+  if Method == "GetService" and Self == game then
     setnamecallmethod("FindService")
   end
+  print(getnamecallmethod());
 end)
 ```
 
