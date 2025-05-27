@@ -51,8 +51,13 @@ Returns the metatable of a table or userdata, even if the metatable has the `__m
 | `Object`      | `userdata or table`  | The target table.     |
 
 ```lua
-local raw = getrawmetatable(game)
-table.foreach(raw, print)
+print(getmetatable(game)) --> "The metatable is locked";
+local raw: {[string]: any} = getrawmetatable(game);
+table.foreach(raw, print) --> {__index, __newindex, __namecall , __tostring, __type);
+
+local test2 = setmetatable({}, {__metatable "This metatable is locked"});
+print(getmetatable(test2)) --> This metatable is locked
+print(getrawmetatable(test2)) -> table: 0x0....
 ```
 
 
@@ -67,8 +72,11 @@ sets the metatable of a table or userdata, even if the metatable has the `__meta
 
 
 ```lua
+local old = getrawmetatable(game);
 setrawmetatable(game, {});
 print(getmetatable(game)); -> {}
+setrawmetatable(game, old);
+print(getmetatable(game)) --> the metatable is locked
 ```
 
 ---
@@ -92,7 +100,7 @@ hook = hookmetamethod(game, "__namecall", newcclosure(function(Self: Object, ...
     if NAME_CALL_METHOD == "Kick" and Self and typeof(Self) == "Instance" and Self.ClassName == "Player" then 
         return; -- Drop the kick call
     end;
-    return hook(Self, unpack(Args));
+    return hook(Self, unpack(Args)) :: any;
 end));
 ```
 
@@ -117,7 +125,7 @@ hook = hookmetamethod(game, newcclosure(function(Self: Object, ...: any): any?
     if NAME_CALL_METHOD == "Kick" and Self and typeof(Self) == "Instance" and Self.ClassName == "Player" then 
         return; -- Drop the kick call
     end;
-    return hook(Self, unpack(Args));
+    return hook(Self, unpack(Args)) :: any;
 end));
 ```
 
