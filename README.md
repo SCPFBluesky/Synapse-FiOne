@@ -84,10 +84,16 @@ Hooks any specified `metamethod` on any userdata or table.
 | `Closure`      | `any?`               | The new function.       |
 
 ```lua
-local hook
-hook = hookmetamethod(game, "__index", function(Self, ...)
-    
-end)
+-- Example: making an anti kick
+local hook;
+hook = hookmetamethod(game, "__namecall", newcclosure(function(Self: Object, ...: any): any?
+    local Args: {any} = {...};
+    local NAME_CALL_METHOD: string = getnamecallmethod();
+    if NAME_CALL_METHOD == "Kick" and Self and typeof(Self) == "Instance" and Self.ClassName == "Player" then 
+        return; -- Drop the kick call
+    end;
+    return hook(Self, unpack(Args));
+end));
 ```
 
 ---
@@ -103,10 +109,16 @@ Internally calls `hookmetamethod`.
 | `Closure`     | `any?`               | The new function. |
 
 ```lua
-local hook
-hook = hooknamecallmethod(game, function(Self, ...)
-    
-end)
+-- Example: making an anti kick
+local hook;
+hook = hookmetamethod(game, newcclosure(function(Self: Object, ...: any): any?
+    local Args: {any} = {...};
+    local NAME_CALL_METHOD: string = getnamecallmethod();
+    if NAME_CALL_METHOD == "Kick" and Self and typeof(Self) == "Instance" and Self.ClassName == "Player" then 
+        return; -- Drop the kick call
+    end;
+    return hook(Self, unpack(Args));
+end));
 ```
 
 ---
@@ -124,19 +136,19 @@ Returns the old function if you don't want to fully replace it.
 | `Closure`     | `any?`   | The new function.     |
 
 ```lua
-local function yeah(X, Y, Z)
-  print("Our x", X)
-end
-
-local oldyeah
-oldyeah = hookfunction(yeah, function(X, Y, Z)
-  if X == 4 then
-    X = 3
-  end
-  return oldyeah(X, Y, Z)
-end)
-
-yeah(4, 6, 9)
+local function getPlayerName(isHooked: boolean): string
+    if isHooked then
+        print("wow we got hooked");
+    end;
+    return "lol" :: string
+end;
+print(getPlayerName());
+local hook;
+hook = hookfunction(getPlayerName, function(isHooked)
+    isHooked = true;
+    return hook(isHooked) :: string;
+end);
+print(getPlayerName());
 ```
 
 ---
@@ -158,13 +170,11 @@ Clones the provided function.
 Returns a string of the method that invoked the ``__namecall `` metamethod of the metatable.
 
 ```lua
-local hook
-hook = hookmetamethod(game, "__namecall", function(Self, ...)
-  local Method = getnamecallmethod()
-  if Method == "GetService" then
-    print("GetService called.")
-  end
-end)
+local hook;
+hook = hookmetamethod(game, "__namecall", newcclosure(function(Self: Object, ...: any): any
+    print(getnamecallmethod());
+    return hook(Self, unpack({...})) :: any;
+end));
 ```
 
 ---
@@ -181,13 +191,14 @@ Sets the methopd that invoked ```__namecall``` to your own wanted method.
 
 ```lua
 local hook
-hook = hookmetamethod(game, "__namecall", function(Self, ...)
-  local Method = getnamecallmethod()
+hook = hookmetamethod(game, "__namecall", newcclosure(function(Self: Object, ...: any): any
+  local Method: string = getnamecallmethod()
   if Method == "GetService" and Self == game then
     setnamecallmethod("FindService")
   end
-  print(getnamecallmethod());
-end)
+  print(getnamecallmethod()); --> "FindService"
+  return hook(Self, unpack({...}));
+end));
 ```
 
 ---
